@@ -1,0 +1,8 @@
+C:\Users\julia\source\repos\Vendas_Dividas\Vendas_Dividas\obj\Debug\net10.0\Vendas_Dividas.csproj.AssemblyReference.cache
+C:\Users\julia\source\repos\Vendas_Dividas\Vendas_Dividas\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\julia\source\repos\Vendas_Dividas\Vendas_Dividas\obj\Debug\net10.0\Vendas_Dividas.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\julia\source\repos\Vendas_Dividas\Vendas_Dividas\obj\Debug\net10.0\Vendas_Dividas.AssemblyInfoInputs.cache
+C:\Users\julia\source\repos\Vendas_Dividas\Vendas_Dividas\obj\Debug\net10.0\Vendas_Dividas.AssemblyInfo.cs
+C:\Users\julia\source\repos\Vendas_Dividas\Vendas_Dividas\obj\Debug\net10.0\Vendas_Dividas.csproj.CoreCompileInputs.cache
+C:\Users\julia\source\repos\Vendas_Dividas\Vendas_Dividas\obj\Debug\net10.0\Vendas_Dividas.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\julia\source\repos\Vendas_Dividas\Vendas_Dividas\obj\Debug\net10.0\Vendas_Dividas.MvcApplicationPartsAssemblyInfo.cache
