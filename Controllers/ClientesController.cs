@@ -5,6 +5,7 @@ using Vendas_Dividas.Services;
 namespace Vendas_Dividas.Controllers
 {
     [Route("api/[controller]")]
+     [ApiController]
     public class ClientesController : ControllerBase
     {
         private readonly ClienteService _clienteService;

@@ -145,8 +145,11 @@
     </div>
 
     <script>
+        // URL DA API - CORRIGIDA!
+        const API_URL = 'http://localhost:5037';
+
         document.getElementById('formCadastro').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede a página de recarregar incorretamente antes de enviar à API
+            event.preventDefault();
             cadastrarClienteEDivida();
         });
         
@@ -160,7 +163,6 @@
             const valorInput = document.getElementById('valorDivida').value;
             const valor = valorInput ? parseFloat(valorInput) : 0;
 
-            
             const clienteData = {
                 nomeCompleto: nome,
                 cpf: cpf,
@@ -171,8 +173,10 @@
             };
 
             try {
-    
-                const responseCliente = await fetch('http://localhost:5000/api/clientes', {
+                // TESTE: Verificar se a API está acessível
+                console.log("Tentando conectar em: " + API_URL + "/api/clientes");
+                
+                const responseCliente = await fetch(API_URL + '/api/clientes', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(clienteData)
@@ -188,12 +192,12 @@
 
                 if (valor > 0) {
                     const dividaData = {
-                        clienteId: clienteCadastrado.id, // ID retornado diretamente do banco pelo C#
+                        clienteId: clienteCadastrado.id,
                         valor: valor,
                         paga: false
                     };
 
-                    const responseDivida = await fetch('http://localhost:5000/api/dividas', {
+                    const responseDivida = await fetch(API_URL + '/api/dividas', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(dividaData)
@@ -207,11 +211,11 @@
                 }
 
                 alert("Cadastro realizado com sucesso!");
-                window.location.href = "index.html"; // Redireciona de volta para a listagem principal
+                window.location.href = "index.html";
 
             } catch (error) {
                 console.error("Erro na requisição:", error);
-                alert("Não foi possível conectar ao servidor backend da API.");
+                alert("Erro: " + error.message + "\n\nVerifique se a API está rodando em: " + API_URL);
             }
         }
     </script>

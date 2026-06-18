@@ -132,44 +132,77 @@
 	</div>
 
 	<script>
+    
+    const API_URL = 'http://localhost:5037';
 
-		async function carregarClientesDoBanco() {
-			try {
-				const response = await fetch('/api/Clientes');
-				if (!response.ok) throw new Error('Erro ao buscar dados.');
+    document.getElementById('formCadastro').addEventListener('submit', function(event) {
+        event.preventDefault();
+        cadastrarClienteEDivida();
+    });
+    
+    async function cadastrarClienteEDivida() {
+        const nome = document.getElementById('nomeCompleto').value;
+        const cpf = document.getElementById('cpf').value;
+        const dataNascimento = document.getElementById('dataNascimento').value;
+        const email = document.getElementById('email').value;
+        const celular = document.getElementById('celular').value;
+        const genero = document.getElementById('genero').value;
+        const valorInput = document.getElementById('valorDivida').value;
+        const valor = valorInput ? parseFloat(valorInput) : 0;
 
-				const clientes = await response.json();
-				const tbody = document.getElementById('corpoTabela');
-				tbody.innerHTML = '';
+        const clienteData = {
+            nomeCompleto: nome,
+            cpf: cpf,
+            dataNascimento: dataNascimento,
+            email: email,
+            celular: celular,
+            genero: genero
+        };
 
-				if (clientes.length === 0) {
-					tbody.innerHTML = `<tr><td colspan="5" style="text-center; color: #777; padding: 20px;">Nenhum cliente cadastrado no banco de dados.</td></tr>`;
-					return;
-				}
+        try {
+            const responseCliente = await fetch(API_URL + '/api/clientes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(clienteData)
+            });
 
+            if (!responseCliente.ok) {
+                const erroTxt = await responseCliente.text();
+                alert("Erro ao cadastrar cliente: " + erroTxt);
+                return;
+            }
 
-				clientes.forEach(c => {
-					const statusClasse = c.totalDividas > 0 ? 'badge-deve' : 'badge-pago';
-					const statusTexto = c.totalDividas > 0 ? 'Pendente' : 'Regular';
+            const clienteCadastrado = await responseCliente.json();
 
-					tbody.innerHTML += `
-								<tr>
-									<td><strong>${c.nomeCompleto}</strong><br><small style="color: #666">${c.email}</small></td>
-									<td>${c.cpf}</td>
-									<td>${c.idade} anos</td>
-									<td><strong>R$ ${c.totalDividas.toFixed(2)}</strong></td>
-									<td><span class="status-badge ${statusClasse}">${statusTexto}</span></td>
-								</tr>
-							`;
-				});
-			} catch (error) {
-				console.error('Erro ao carregar dados da API:', error);
-			}
-		}
+            if (valor > 0) {
+                const dividaData = {
+                    clienteId: clienteCadastrado.id,
+                    valor: valor,
+                    paga: false
+                };
 
-		// Executa a busca assim que a tela abre
-		window.onload = carregarClientesDoBanco;
-	</script>
+                const responseDivida = await fetch(API_URL + '/api/dividas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dividaData)
+                });
+
+                if (!responseDivida.ok) {
+                    const erroDividaTxt = await responseDivida.text();
+                    alert("Cliente cadastrado com sucesso, mas a dívida deu erro: " + erroDividaTxt);
+                    return;
+                }
+            }
+
+            alert("Cadastro realizado com sucesso!");
+            window.location.href = "index.html";
+
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            alert("Não foi possível conectar ao servidor backend da API.");
+        }
+    }
+</script>
 
 </body>
 </html>
