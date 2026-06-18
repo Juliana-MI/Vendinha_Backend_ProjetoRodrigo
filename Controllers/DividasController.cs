@@ -1,59 +1,86 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Vendas_Dividas.ContextDb;
 using Vendas_Dividas.Models;
+using Vendas_Dividas.Services;
 
 namespace Vendas_Dividas.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
     public class DividasController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly DividaService _dividaService;
+        private readonly ClienteService _clienteService;
 
-        public DividasController(AppDbContext context)
+        public DividasController(DividaService dividaService, ClienteService clienteService)
         {
-            _context = context;
+            _dividaService = dividaService;
+            _clienteService = clienteService;
+        }
+
+        [HttpGet]
+        public ActionResult GetDividas()
+        {
+            var dividas = _dividaService.GetAllDividas();
+            return Ok(dividas);
+        }
+
+        [HttpGet("pendentes")]
+        public ActionResult GetDividasPendentes()
+        {
+            var dividas = _dividaService.GetDividasPendentes();
+            return Ok(dividas);
+        }
+
+        [HttpGet("pagas")]
+        public ActionResult GetDividasPagas()
+        {
+            var dividas = _dividaService.GetDividasPagas();
+            return Ok(dividas);
+        }
+
+        [HttpGet("cliente/{clienteId}")]
+        public ActionResult GetDividasByCliente(int clienteId)
+        {
+            var cliente = _clienteService.GetClienteById(clienteId);
+            if (cliente == null)
+                return NotFound("Cliente não encontrado.");
+
+            var dividas = _dividaService.GetDividasByCliente(clienteId);
+            return Ok(dividas);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Divida>> PostDivida(Divida divida)
+        public ActionResult<Divida> PostDivida(Divida divida)
         {
-            var clienteExiste = await _context.Clientes.AnyAsync(c => c.Id == divida.ClienteId);
-            if (!clienteExiste)
-            {
-                return BadRequest("O Cliente informado não existe.");
-            }
+            // Verifica se cliente existe
+            var cliente = _clienteService.GetClienteById(divida.ClienteId);
+            if (cliente == null)
+                return BadRequest("Cliente não encontrado.");
 
-            var possuiDividaEmAberto = await _context.Dividas
-                .AnyAsync(d => d.ClienteId == divida.ClienteId && d.Paga == false);
+            // Verifica se o valor é válido
+            if (divida.Valor <= 0)
+                return BadRequest("O valor da dívida deve ser maior que zero.");
 
-            if (possuiDividaEmAberto)
-            {
-                return BadRequest("Este cliente já possui uma dívida em aberto. Quite a dívida anterior antes de pendurar uma nova.");
-            }
+            // Verifica se já existe dívida em aberto
+            var dividasEmAberto = _dividaService.GetDividasEmAberto(divida.ClienteId);
+            if (dividasEmAberto > 0)
+                return BadRequest("Este cliente já possui uma dívida em aberto.");
 
-            divida.DataCriacao = DateTime.Now;
-            _context.Dividas.Add(divida);
-            await _context.SaveChangesAsync();
-
-            return Ok(divida);
+            var novaDivida = _dividaService.CreateDivida(divida);
+            return CreatedAtAction(nameof(GetDividas), new { id = novaDivida.Id }, novaDivida);
         }
 
         [HttpPut("{id}/pagar")]
-        public async Task<IActionResult> PagarDivida(int id)
+        public IActionResult PagarDivida(int id)
         {
-            var divida = await _context.Dividas.FindAsync(id);
+            var divida = _dividaService.GetDividaById(id);
             if (divida == null)
-            {
                 return NotFound("Dívida não encontrada.");
-            }
 
-            divida.Paga = true;
-            divida.DataPagamento = DateTime.Now; 
+            // VALIDAÇÃO: verifica se já está paga - como o professor pediu
+            if (divida.Paga)
+                return BadRequest("Esta dívida já foi paga.");
 
-            await _context.SaveChangesAsync();
-
+            _dividaService.PagarDivida(id);
             return NoContent();
         }
     }

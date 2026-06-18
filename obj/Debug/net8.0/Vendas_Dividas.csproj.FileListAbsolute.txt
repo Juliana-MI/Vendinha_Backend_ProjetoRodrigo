@@ -121,8 +121,6 @@ C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\obj\Debug\net8.0\Vendas_Dividas
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\obj\Debug\net8.0\Vendas_Dividas.dll
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\obj\Debug\net8.0\refint\Vendas_Dividas.dll
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\obj\Debug\net8.0\Vendas_Dividas.pdb
-C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\wwwroot\cadastro.html
-C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\wwwroot\divida.html
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\appsettings.json
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\Vendas_Dividas.staticwebassets.endpoints.json
@@ -133,7 +131,6 @@ C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\Vendas_Dividas
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\Vendas_Dividas.dll
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\Vendas_Dividas.pdb
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\Humanizer.dll
-C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -221,3 +218,4 @@ C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\obj\Debug\net8.0\swae.build.ex.
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\obj\Debug\net8.0\Vendas_D.1B7644AC.Up2Date
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\obj\Debug\net8.0\Vendas_Dividas.genruntimeconfig.cache
 C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\obj\Debug\net8.0\ref\Vendas_Dividas.dll
+C:\Users\julia\OneDrive\Desktop\Trabalho_Rodrigo\obj\Debug\net8.0\Vendas_Dividas.sourcelink.json

@@ -18,8 +18,8 @@ namespace Vendas_Dividas.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    NomeCompleto = table.Column<string>(type: "text", nullable: false),
-                    Cpf = table.Column<string>(type: "text", nullable: false),
+                    NomeCompleto = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Cpf = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
                     DataNascimento = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Idade = table.Column<int>(type: "integer", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: true),

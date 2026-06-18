@@ -35,7 +35,8 @@ namespace Vendas_Dividas.Migrations
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(11)
+                        .HasColumnType("character varying(11)");
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("timestamp without time zone");
@@ -51,7 +52,8 @@ namespace Vendas_Dividas.Migrations
 
                     b.Property<string>("NomeCompleto")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("text");
